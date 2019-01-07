@@ -5,6 +5,7 @@ import uuid from "uuid";
 
 import { DeepPartial, Omit, Sub } from "talk-common/types";
 import { dotize, DotizeOptions } from "talk-common/utils/dotize";
+import { LanguageCode } from "talk-server/graph/tenant/resolvers/LOCALES";
 import { GQLMODERATION_MODE } from "talk-server/graph/tenant/schema/__generated__/types";
 import { Settings } from "talk-server/models/settings";
 
@@ -37,6 +38,11 @@ export interface Tenant extends Settings {
   // domains is the list of domains that are allowed to have the iframe load on.
   domains: string[];
 
+  /**
+   * locale is the specified locale for this Tenant.
+   */
+  locale: LanguageCode;
+
   organizationName: string;
   organizationURL: string;
   organizationContactEmail: string;
@@ -50,10 +56,11 @@ export interface Tenant extends Settings {
 export type CreateTenantInput = Pick<
   Tenant,
   | "domain"
+  | "domains"
+  | "locale"
   | "organizationName"
   | "organizationURL"
   | "organizationContactEmail"
-  | "domains"
 >;
 
 /**
