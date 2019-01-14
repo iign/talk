@@ -85,7 +85,7 @@ class Server {
     this.mongo = await createMongoDB(config);
 
     // Setup Redis.
-    this.redis = createRedisClient(config);
+    this.redis = await createRedisClient(config);
 
     // Create the TenantCache.
     this.tenantCache = new TenantCache(
@@ -98,7 +98,7 @@ class Server {
     await this.tenantCache.primeAll();
 
     // Create the Job Queue.
-    this.queue = createQueue({
+    this.queue = await createQueue({
       config: this.config,
       mongo: this.mongo,
       tenantCache: this.tenantCache,
